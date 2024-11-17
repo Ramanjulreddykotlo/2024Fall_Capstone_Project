@@ -1,3 +1,4 @@
+//hardcoded json data to render it through API 
 const destinations = [
   {
     id: 1,
