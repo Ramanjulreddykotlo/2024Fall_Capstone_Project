@@ -1,3 +1,4 @@
+/* Container and Header Styles */
 .recommendations-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -16,7 +17,7 @@
     margin: 0 0 8px;
     background: linear-gradient(135deg, #2563eb, #06b6d4);
     -webkit-background-clip: text;
-    background-clip: text; /* Added for broader browser support */
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -26,13 +27,14 @@
     margin: 0;
 }
 
-.recommendations-loader {
+/* Controls Section */
+.controls-container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 32px;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    min-height: 400px;
-    gap: 16px;
 }
 
 .filters-container {
@@ -43,7 +45,18 @@
     justify-content: center;
 }
 
-.filter-btn {
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sort-container label {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.sort-select {
     padding: 8px 16px;
     border: 2px solid #e2e8f0;
     border-radius: 12px;
@@ -52,26 +65,46 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Improved transition */
+    transition: all 0.3s;
+}
+
+.sort-select:hover {
+    border-color: #2563eb;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .filter-btn:hover {
     border-color: #2563eb;
     color: #2563eb;
-    transform: translateY(-1px); /* Subtle lift effect */
+    transform: translateY(-1px);
 }
 
 .filter-btn:active {
-    transform: translateY(0); /* Press effect */
+    transform: translateY(0);
 }
 
 .filter-btn.active {
     background: linear-gradient(135deg, #2563eb, #06b6d4);
     color: white;
     border-color: transparent;
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); /* Added subtle shadow */
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
+/* Grid Layout */
 .recommendations-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -79,13 +112,14 @@
     margin-top: 24px;
 }
 
+/* Destination Card */
 .destination-card {
     background: white;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, box-shadow; /* Performance optimization */
+    will-change: transform, box-shadow;
 }
 
 .destination-card:hover {
@@ -98,42 +132,103 @@
     background-size: cover;
     background-position: center;
     position: relative;
-    transition: transform 0.3s ease; /* Added transition for zoom effect */
+    transition: transform 0.3s ease;
     overflow: hidden;
 }
 
 .destination-card:hover .destination-image {
-    transform: scale(1.05); /* Subtle zoom on hover */
+    transform: scale(1.05);
 }
 
+/* Weather Badge and Details */
 .destination-badge {
     position: absolute;
     top: 16px;
     right: 16px;
-    background: rgba(255, 255, 255, 0.95); /* Increased opacity */
-    padding: 4px 12px;
+}
+
+.weather-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: #2563eb;
-    backdrop-filter: blur(4px); /* Added blur effect */
+    backdrop-filter: blur(4px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.match-score-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.match-score-badge.excellent {
+    background: rgba(16, 185, 129, 0.95);
+    color: white;
+}
+
+.match-score-badge.good {
+    background: rgba(245, 158, 11, 0.95);
+    color: white;
+}
+
+.match-score-badge.fair {
+    background: rgba(239, 68, 68, 0.95);
+    color: white;
+}
+
+/* Weather Icons */
+.weather-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.weather-icon.tropical {
+    color: #0ea5e9;
+}
+.weather-icon.hot {
+    color: #ef4444;
+}
+.weather-icon.cold {
+    color: #3b82f6;
+}
+.weather-icon.moderate {
+    color: #10b981;
+}
+
+/* Destination Content */
 .destination-content {
     padding: 24px;
+}
+
+.destination-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .destination-name {
     font-size: 20px;
     font-weight: 600;
     color: #1e293b;
-    margin: 0 0 8px;
+    margin: 0;
     transition: color 0.3s ease;
 }
 
 .destination-card:hover .destination-name {
-    color: #2563eb; /* Color change on hover */
+    color: #2563eb;
 }
 
 .destination-description {
@@ -147,30 +242,56 @@
     overflow: hidden;
 }
 
-.destination-details {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
+/* Weather Details Section */
+.weather-details {
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 12px;
+    margin: 16px 0;
 }
 
+.weather-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.weather-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.weather-stat svg {
+    color: #2563eb;
+}
+
+/* Tags and Indicators */
 .budget-indicator {
     color: #059669;
     font-weight: 600;
     font-size: 14px;
+    background: #f0fdf4;
+    padding: 6px 12px;
+    border-radius: 12px;
 }
 
 .cuisine-tags {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    margin: 16px 0;
 }
 
 .cuisine-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     background: #f1f5f9;
     color: #475569;
-    padding: 4px 8px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -178,38 +299,25 @@
 
 .cuisine-tag:hover {
     background: #e2e8f0;
-    color: #1e293b;
+    transform: translateY(-1px);
 }
 
+/* Buttons */
 .btn-explore {
     width: 100%;
     background: linear-gradient(135deg, #2563eb, #06b6d4);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 24px;
     border-radius: 12px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-explore:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #06b6d4, #2563eb);
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 .btn-explore:hover {
@@ -217,25 +325,43 @@
     box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
 }
 
-.btn-explore:hover:before {
-    opacity: 1;
+.btn-explore .btn-icon {
+    transition: transform 0.3s;
 }
 
-.btn-explore > * {
-    position: relative;
-    z-index: 1;
-}
-
-.btn-arrow {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-explore:hover .btn-arrow {
+.btn-explore:hover .btn-icon {
     transform: translateX(4px);
 }
 
+/* Loading States */
+.recommendations-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 16px;
+}
+
+.loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2563eb;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty States */
 .no-results {
     text-align: center;
     padding: 48px 24px;
@@ -255,22 +381,7 @@
     margin: 0 0 24px;
 }
 
-/* Added loading animation */
-@keyframes cardShimmer {
-    0% {
-        background-position: -468px 0;
-    }
-    100% {
-        background-position: 468px 0;
-    }
-}
-
-.destination-image.loading {
-    background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
-    background-size: 800px 104px;
-    animation: cardShimmer 1.2s linear infinite;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
     .recommendations-container {
         padding: 24px 16px;
@@ -284,35 +395,48 @@
         font-size: 14px;
     }
 
+    .controls-container {
+        flex-direction: column;
+    }
+
     .recommendations-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 16px;
     }
 
-    .destination-card {
-        border-radius: 12px;
+    .weather-stats {
+        flex-direction: column;
     }
 
     .destination-image {
         height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 13px;
     }
 
     .destination-content {
         padding: 16px;
     }
 
-    .destination-name {
-        font-size: 18px;
+    .weather-badge {
+        padding: 4px 8px;
     }
 }
 
-/* Added print styles */
+/* Print Styles */
 @media print {
     .recommendations-container {
         padding: 0;
     }
 
-    .filters-container {
+    .controls-container,
+    .filters-container,
+    .btn-explore {
         display: none;
     }
 
@@ -320,9 +444,5 @@
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #e2e8f0;
-    }
-
-    .btn-explore {
-        display: none;
     }
 }
