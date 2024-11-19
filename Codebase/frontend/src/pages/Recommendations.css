@@ -27,6 +27,52 @@
     margin: 0;
 }
 
+/* Weather Legend Styles */
+.weather-legend {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.legend-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 16px;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.legend-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.legend-content span:first-child {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.legend-description {
+    font-size: 12px;
+    color: #64748b;
+}
+
 /* Controls Section */
 .controls-container {
     display: flex;
@@ -197,12 +243,15 @@
 .weather-icon.tropical {
     color: #0ea5e9;
 }
+
 .weather-icon.hot {
     color: #ef4444;
 }
+
 .weather-icon.cold {
     color: #3b82f6;
 }
+
 .weather-icon.moderate {
     color: #10b981;
 }
@@ -265,6 +314,334 @@
 
 .weather-stat svg {
     color: #2563eb;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-container {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.close-button {
+    padding: 8px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.2s;
+}
+
+.close-button:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* Flight Card Styles */
+.pricing-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+}
+
+.pricing-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.pricing-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.airline-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.direct-badge {
+    background: #dcfce7;
+    color: #059669;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.flight-details {
+    margin-top: 12px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    color: #64748b;
+}
+
+.flight-point {
+    flex: 1;
+}
+
+.airport {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.time,
+.duration {
+    font-size: 14px;
+}
+
+/* Modal Filter Section */
+.modal-filters {
+    padding: 20px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-item label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.filter-item input,
+.filter-item select {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.filter-item input:focus,
+.filter-item select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Modal Tabs */
+.modal-tabs {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    color: #2563eb;
+}
+
+.tab-button.active {
+    color: #2563eb;
+    border-bottom: 2px solid #2563eb;
+}
+
+/* Modal Content Area */
+.modal-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+}
+
+.disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.close-button-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-button-primary:hover {
+    background: #1d4ed8;
+}
+
+/* Loading States */
+.recommendations-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 16px;
+}
+
+.loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2563eb;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Accommodation Styles */
+.accommodation-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+}
+
+.accommodation-type {
+    font-size: 14px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+.price-container {
+    text-align: right;
+}
+
+.price-subtitle {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.rating {
+    display: flex;
+    gap: 4px;
+    margin: 12px 0;
+}
+
+.star-icon {
+    width: 16px;
+    height: 16px;
+    fill: #fbbf24;
+}
+
+.amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.amenity-tag {
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #475569;
 }
 
 /* Tags and Indicators */
@@ -333,34 +710,6 @@
     transform: translateX(4px);
 }
 
-/* Loading States */
-.recommendations-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
-    gap: 16px;
-}
-
-.loader {
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #2563eb;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 /* Empty States */
 .no-results {
     text-align: center;
@@ -382,6 +731,12 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .recommendations-container {
         padding: 24px 16px;
@@ -399,17 +754,27 @@
         flex-direction: column;
     }
 
-    .recommendations-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 16px;
-    }
-
     .weather-stats {
         flex-direction: column;
     }
 
     .destination-image {
         height: 160px;
+    }
+
+    .modal-container {
+        max-height: 100vh;
+        margin: 0;
+    }
+
+    .flight-route {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -426,6 +791,19 @@
     .weather-badge {
         padding: 4px 8px;
     }
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+    .pricing-card-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .legend-items {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Print Styles */
@@ -436,7 +814,8 @@
 
     .controls-container,
     .filters-container,
-    .btn-explore {
+    .btn-explore,
+    .modal-overlay {
         display: none;
     }
 
@@ -445,4 +824,25 @@
         box-shadow: none;
         border: 1px solid #e2e8f0;
     }
+
+    .weather-badge,
+    .match-score-badge {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    .destination-card,
+    .btn-explore,
+    .modal-container,
+    .cuisine-tag {
+        transition: none;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
 }

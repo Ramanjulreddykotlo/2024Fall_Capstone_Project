@@ -77,7 +77,6 @@ const WeatherLegend = () => (
   </div>
 );
 
-// Pricing Modal Components
 const FlightCard = ({ flight }) => {
   const date = new Date(flight.date);
 
@@ -152,7 +151,6 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
   const [travelers, setTravelers] = useState(2);
   const [activeTab, setActiveTab] = useState("flights");
 
-  // Generate dummy flight data
   const generateFlightData = () => {
     const basePrice = {
       luxury: { min: 800, max: 1500 },
@@ -186,7 +184,6 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
     return flights.sort((a, b) => a.price - b.price);
   };
 
-  // Generate dummy accommodation data
   const generateAccommodationData = () => {
     const basePricePerNight = {
       luxury: { min: 300, max: 1000 },
@@ -284,7 +281,9 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
             Flights
           </button>
           <button
-            className={`tab-button ${activeTab === "accommodations" ? "active" : ""}`}
+            className={`tab-button ${
+              activeTab === "accommodations" ? "active" : ""
+            }`}
             onClick={() => setActiveTab("accommodations")}
           >
             <Hotel size={20} />
@@ -366,7 +365,62 @@ const Recommendations = () => {
     }
   };
 
-  // ... (keep existing helper functions like getBudgetValue, formatTemperature, etc.)
+  const filterAndSortRecommendations = (recommendations) => {
+    let filtered = recommendations;
+
+    if (activeFilter !== "all") {
+      filtered = recommendations.filter((rec) => rec.weather === activeFilter);
+    }
+
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "matchScore":
+          return b.matchScore - a.matchScore;
+        case "price":
+          return getBudgetValue(a.budget) - getBudgetValue(b.budget);
+        case "temperature":
+          return (
+            (b.currentWeather?.temperature || 0) -
+            (a.currentWeather?.temperature || 0)
+          );
+        default:
+          return 0;
+      }
+    });
+  };
+
+  const getBudgetValue = (budget) => {
+    switch (budget) {
+      case "affordable":
+        return 1;
+      case "moderate":
+        return 2;
+      case "luxury":
+        return 3;
+      default:
+        return 1;
+    }
+  };
+
+  const getBudgetIcon = (budget) => {
+    switch (budget) {
+      case "budget":
+      case "affordable":
+        return "$";
+      case "moderate":
+        return "$$";
+      case "luxury":
+        return "$$$";
+      default:
+        return "$";
+    }
+  };
+
+  const getMatchScoreColor = (score) => {
+    if (score >= 70) return "excellent";
+    if (score >= 50) return "good";
+    return "fair";
+  };
 
   if (loading) {
     return (
@@ -392,19 +446,111 @@ const Recommendations = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      {/* Keep existing controls-container and filters-container code */}
+      <div className="controls-container">
+        <div className="filters-container">
+          <button
+            className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
+            onClick={() => setActiveFilter("all")}
+          >
+            <Map size={16} />
+            All
+          </button>
+          <button
+            className={`filter-btn ${activeFilter === "tropical" ? "active" : ""}`}
+            onClick={() => setActiveFilter("tropical")}
+          >
+            <Droplets size={16} />
+            Tropical
+          </button>
+          <button
+            className={`filter-btn ${activeFilter === "moderate" ? "active" : ""}`}
+            onClick={() => setActiveFilter("moderate")}
+          >
+            <Cloud size={16} />
+            Moderate
+          </button>
+          <button
+            className={`filter-btn ${activeFilter === "cold" ? "active" : ""}`}
+            onClick={() => setActiveFilter("cold")}
+          >
+            <Snowflake size={16} />
+            Cold
+          </button>
+          <button
+            className={`filter-btn ${activeFilter === "hot" ? "active" : ""}`}
+            onClick={() => setActiveFilter("hot")}
+          >
+            <Sun size={16} />
+            Hot
+          </button>
+        </div>
+
+        <div className="sort-container">
+          <label>Sort by:</label>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select"
+          >
+            <option value="matchScore">Best Match</option>
+            <option value="price">Price</option>
+            <option value="temperature">Temperature</option>
+          </select>
+        </div>
+      </div>
 
       <div className="recommendations-grid">
         {filterAndSortRecommendations(recommendations).map((destination) => (
           <div key={destination.id} className="destination-card">
-            {/* Keep existing destination card structure, but update the explore button */}
-            <button
-              className="btn-explore"
-              onClick={() => setSelectedDestination(destination)}
+            <div
+              className="destination-image"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("${destination.imageUrl}")`,
+              }}
             >
-              <span>Explore Destination</span>
-              <Wind className="btn-icon" size={18} />
-            </button>
+              <div className="destination-badge">
+                <WeatherIcon type={destination.weather} />
+              </div>
+              <div
+                className={`match-score-badge ${getMatchScoreColor(
+                  destination.matchScore,
+                )}`}
+              >
+                {destination.matchScore}% Match
+              </div>
+            </div>
+
+            <div className="destination-content">
+              <div className="destination-header">
+                <h3 className="destination-name">
+                  {destination.name}, {destination.country}
+                </h3>
+                <span className="budget-indicator">
+                  {getBudgetIcon(destination.budget)}
+                </span>
+              </div>
+
+              <p className="destination-description">
+                {destination.description}
+              </p>
+
+              <div className="cuisine-tags">
+                {destination.cuisines.map((cuisine, index) => (
+                  <span key={index} className="cuisine-tag">
+                    <Utensils size={14} />
+                    {cuisine}
+                  </span>
+                ))}
+              </div>
+
+              <button
+                className="btn-explore"
+                onClick={() => setSelectedDestination(destination)}
+              >
+                <span>Explore Destination</span>
+                <Wind className="btn-icon" size={18} />
+              </button>
+            </div>
           </div>
         ))}
       </div>
