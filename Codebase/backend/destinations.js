@@ -1,4 +1,3 @@
-//hardcoded json data to render it through API 
 const destinations = [
   {
     id: 1,
@@ -7,12 +6,24 @@ const destinations = [
     weather: "tropical",
     budget: "moderate",
     cuisines: ["Asian", "Local"],
-    description: "Tropical paradise with rich culture and beautiful beaches",
+    description:
+      "Tropical paradise with rich culture, beautiful beaches, and lush rice terraces.",
     imageUrl: "https://images.unsplash.com/photo-1555400038-63f5ba517a47",
-    coordinates: {
-      lat: -8.4095,
-      lon: 115.1889
-    }
+    coordinates: { lat: -8.4095, lon: 115.1889 },
+    topAttractions: [
+      "Uluwatu Temple",
+      "Mount Batur",
+      "Tegallalang Rice Terraces",
+    ],
+    activities: [
+      "Surfing in Kuta",
+      "Balinese cooking classes",
+      "Yoga retreats in Ubud",
+    ],
+    famousDishes: ["Nasi Goreng", "Babi Guling", "Mie Goreng"],
+    bestTravelSeasons: "April to October (dry season)",
+    transportationTips:
+      "Hire a scooter or use local Blue Bird taxis. Ride-hailing apps like Grab are also common.",
   },
   {
     id: 2,
@@ -21,12 +32,20 @@ const destinations = [
     weather: "moderate",
     budget: "luxury",
     cuisines: ["Italian", "Mediterranean"],
-    description: "Historic city with amazing architecture and food",
+    description:
+      "Historic city with ancient ruins, world-class art, and mouthwatering cuisine.",
     imageUrl: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
-    coordinates: {
-      lat: 41.9028,
-      lon: 12.4964
-    }
+    coordinates: { lat: 41.9028, lon: 12.4964 },
+    topAttractions: ["Colosseum", "Trevi Fountain", "Vatican Museums"],
+    activities: [
+      "Walking tours of the historic center",
+      "Gelato tasting",
+      "Evening aperitivo in local piazzas",
+    ],
+    famousDishes: ["Cacio e Pepe", "Carbonara", "Margherita Pizza"],
+    bestTravelSeasons: "April to June, September to October",
+    transportationTips:
+      "Use the Metro, buses, and walk in the center. Driving is not recommended due to traffic.",
   },
   {
     id: 3,
@@ -35,12 +54,21 @@ const destinations = [
     weather: "cold",
     budget: "luxury",
     cuisines: ["Local", "Mediterranean"],
-    description: "Land of fire and ice with stunning natural beauty",
+    description:
+      "Land of fire and ice with geothermal wonders, glaciers, and Northern Lights.",
     imageUrl: "https://images.unsplash.com/photo-1504893524553-b855bce32c67",
-    coordinates: {
-      lat: 64.1280,
-      lon: -21.8274
-    }
+    coordinates: { lat: 64.128, lon: -21.8274 },
+    topAttractions: ["Blue Lagoon", "Hallgrimskirkja Church", "Golden Circle"],
+    activities: [
+      "Whale watching",
+      "Northern Lights hunting",
+      "Geothermal spa visits",
+    ],
+    famousDishes: ["Lamb soup", "Skyr", "Fresh Atlantic cod"],
+    bestTravelSeasons:
+      "Feb-Mar & Sep-Oct for Northern Lights, Jun-Aug for milder weather",
+    transportationTips:
+      "Rent a car for countryside exploration. Local buses are reliable in town.",
   },
   {
     id: 4,
@@ -49,12 +77,20 @@ const destinations = [
     weather: "tropical",
     budget: "luxury",
     cuisines: ["Asian", "Local"],
-    description: "Modern city-state with incredible food and attractions",
+    description:
+      "Modern city-state known for its diverse cuisine, efficient transport, and futuristic skyline.",
     imageUrl: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd",
-    coordinates: {
-      lat: 1.3521,
-      lon: 103.8198
-    }
+    coordinates: { lat: 1.3521, lon: 103.8198 },
+    topAttractions: ["Marina Bay Sands", "Gardens by the Bay", "Merlion Park"],
+    activities: [
+      "Hawker center food tours",
+      "Shopping on Orchard Road",
+      "Night safari at the zoo",
+    ],
+    famousDishes: ["Chili Crab", "Hainanese Chicken Rice", "Laksa"],
+    bestTravelSeasons: "Year-round, but Feb-Apr often slightly less humid",
+    transportationTips:
+      "Use the MRT and buses. The EZ-Link card is convenient for public transport.",
   },
   {
     id: 5,
@@ -63,12 +99,20 @@ const destinations = [
     weather: "moderate",
     budget: "moderate",
     cuisines: ["Mediterranean", "Local"],
-    description: "Vibrant city with stunning architecture and beaches",
+    description:
+      "Vibrant coastal city with Gaudí’s architecture, lively streets, and a relaxed atmosphere.",
     imageUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded",
-    coordinates: {
-      lat: 41.3851,
-      lon: 2.1734
-    }
+    coordinates: { lat: 41.3851, lon: 2.1734 },
+    topAttractions: ["Sagrada Familia", "Park Güell", "La Rambla"],
+    activities: [
+      "Tapas bar hopping",
+      "Beach days at Barceloneta",
+      "Bike tours of the Gothic Quarter",
+    ],
+    famousDishes: ["Patatas Bravas", "Paella", "Crema Catalana"],
+    bestTravelSeasons: "April to June, September to October",
+    transportationTips:
+      "Use the Metro and buses. Walking and cycling are great for shorter distances.",
   },
   {
     id: 6,
@@ -77,12 +121,20 @@ const destinations = [
     weather: "moderate",
     budget: "luxury",
     cuisines: ["Japanese", "Asian"],
-    description: "Historic city with beautiful temples and traditional culture",
+    description:
+      "Historic capital with enchanting temples, tea ceremonies, and geisha traditions.",
     imageUrl: "https://images.unsplash.com/photo-1558862107-d49ef2a04d72",
-    coordinates: {
-      lat: 35.0116,
-      lon: 135.7681
-    }
+    coordinates: { lat: 35.0116, lon: 135.7681 },
+    topAttractions: ["Fushimi Inari Shrine", "Kinkaku-ji", "Gion District"],
+    activities: [
+      "Traditional tea ceremonies",
+      "Kimono rentals",
+      "Cherry blossom viewing",
+    ],
+    famousDishes: ["Kaiseki Ryori", "Matcha desserts", "Ramen"],
+    bestTravelSeasons: "Mar-May (cherry blossoms), Oct-Nov (autumn foliage)",
+    transportationTips:
+      "Use buses, subway, and rent a bicycle. The city is very pedestrian-friendly.",
   },
   {
     id: 7,
@@ -91,12 +143,20 @@ const destinations = [
     weather: "moderate",
     budget: "luxury",
     cuisines: ["French", "European"],
-    description: "City of love known for its art, fashion, and culture",
+    description:
+      "City of love renowned for its art, fashion, museums, and café culture.",
     imageUrl: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a",
-    coordinates: {
-      lat: 48.8566,
-      lon: 2.3522
-    }
+    coordinates: { lat: 48.8566, lon: 2.3522 },
+    topAttractions: ["Eiffel Tower", "Louvre Museum", "Notre-Dame Cathedral"],
+    activities: [
+      "Café-hopping in Montmartre",
+      "River cruise on the Seine",
+      "Wine tasting workshops",
+    ],
+    famousDishes: ["Croissants", "Coq au Vin", "Macarons"],
+    bestTravelSeasons: "April to June, September to November",
+    transportationTips:
+      "Use the Metro. Walking is ideal for exploring neighborhoods. Avoid driving.",
   },
   {
     id: 8,
@@ -105,12 +165,20 @@ const destinations = [
     weather: "hot",
     budget: "affordable",
     cuisines: ["Middle Eastern", "Local"],
-    description: "Historic city with ancient landmarks and rich culture",
+    description:
+      "Historic city with ancient pyramids, bustling souks, and millennia of cultural heritage.",
     imageUrl: "https://images.unsplash.com/photo-1541769740-098e80269166",
-    coordinates: {
-      lat: 30.0444,
-      lon: 31.2357
-    }
+    coordinates: { lat: 30.0444, lon: 31.2357 },
+    topAttractions: ["Pyramids of Giza", "Egyptian Museum", "Khan el-Khalili"],
+    activities: [
+      "Felucca rides on the Nile",
+      "Desert safaris",
+      "Visiting Coptic Cairo",
+    ],
+    famousDishes: ["Koshari", "Ful Medames", "Mahshi"],
+    bestTravelSeasons: "October to April",
+    transportationTips:
+      "Use Uber or taxis. Metro is available but limited. Walking in crowded areas is common.",
   },
   {
     id: 9,
@@ -119,12 +187,20 @@ const destinations = [
     weather: "moderate",
     budget: "luxury",
     cuisines: ["Australian", "International"],
-    description: "Beautiful coastal city with famous landmarks and beaches",
+    description:
+      "Coastal metropolis famed for its opera house, harbor views, and sunny beach lifestyle.",
     imageUrl: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9",
-    coordinates: {
-      lat: -33.8688,
-      lon: 151.2093
-    }
+    coordinates: { lat: -33.8688, lon: 151.2093 },
+    topAttractions: ["Sydney Opera House", "Harbour Bridge", "Bondi Beach"],
+    activities: [
+      "Coastal walks (Bondi to Coogee)",
+      "Sailing on the harbour",
+      "Surfing lessons",
+    ],
+    famousDishes: ["Avocado toast", "Lamingtons", "Barramundi"],
+    bestTravelSeasons: "Sep-Nov, Mar-May",
+    transportationTips:
+      "Use Opal cards for trains, buses, ferries. Walking is great near the harbor.",
   },
   {
     id: 10,
@@ -133,12 +209,20 @@ const destinations = [
     weather: "hot",
     budget: "luxury",
     cuisines: ["Middle Eastern", "International"],
-    description: "Modern city with luxury shopping and vibrant nightlife",
+    description:
+      "Glamorous city known for modern architecture, upscale shopping, and desert adventures.",
     imageUrl: "https://images.unsplash.com/photo-1489516408517-0c0a15662682",
-    coordinates: {
-      lat: 25.2048,
-      lon: 55.2708
-    }
+    coordinates: { lat: 25.2048, lon: 55.2708 },
+    topAttractions: ["Burj Khalifa", "Dubai Mall", "Palm Jumeirah"],
+    activities: [
+      "Desert dune bashing",
+      "Luxury yacht cruises",
+      "Skydiving over The Palm",
+    ],
+    famousDishes: ["Shawarma", "Machboos", "Luqaimat"],
+    bestTravelSeasons: "November to March",
+    transportationTips:
+      "Use the Metro, taxis are common, driving is easy on wide roads.",
   },
   {
     id: 11,
@@ -147,12 +231,23 @@ const destinations = [
     weather: "tropical",
     budget: "luxury",
     cuisines: ["Hawaiian", "American"],
-    description: "Island paradise with stunning beaches and nature",
+    description:
+      "Island paradise with volcanic landscapes, rainforest hikes, and pristine shores.",
     imageUrl: "https://images.unsplash.com/photo-1568576599263-ad9f374633d4",
-    coordinates: {
-      lat: 20.7984,
-      lon: -156.3319
-    }
+    coordinates: { lat: 20.7984, lon: -156.3319 },
+    topAttractions: [
+      "Haleakalā National Park",
+      "Road to Hana",
+      "Kaanapali Beach",
+    ],
+    activities: [
+      "Snorkeling at Molokini",
+      "Attending a luau",
+      "Whale watching (in season)",
+    ],
+    famousDishes: ["Poke bowls", "Kalua pork", "Haupia pie"],
+    bestTravelSeasons: "April to May, September to November",
+    transportationTips: "Rent a car to explore. Public transport is limited.",
   },
   {
     id: 12,
@@ -161,12 +256,20 @@ const destinations = [
     weather: "moderate",
     budget: "affordable",
     cuisines: ["Argentinian", "Latin American"],
-    description: "Vibrant city with rich culture and tango music",
+    description:
+      "Vibrant city with European flair, tango music, and a rich cultural scene.",
     imageUrl: "https://images.unsplash.com/photo-1679417302631-7a8998864de6",
-    coordinates: {
-      lat: -34.6037,
-      lon: -58.3816
-    }
+    coordinates: { lat: -34.6037, lon: -58.3816 },
+    topAttractions: ["La Boca", "Recoleta Cemetery", "Teatro Colón"],
+    activities: [
+      "Tango dancing lessons",
+      "Wine tasting in Palermo",
+      "Exploring San Telmo Market",
+    ],
+    famousDishes: ["Asado", "Empanadas", "Dulce de Leche"],
+    bestTravelSeasons: "March to May, September to November",
+    transportationTips:
+      "Use the Subte (metro) and taxis. Walking is great in central barrios.",
   },
   {
     id: 13,
@@ -175,12 +278,20 @@ const destinations = [
     weather: "cold",
     budget: "moderate",
     cuisines: ["Peruvian", "Local"],
-    description: "Historic city in the Andes, gateway to Machu Picchu",
+    description:
+      "Historic city in the Andes, gateway to Machu Picchu and Inca civilization.",
     imageUrl: "https://images.unsplash.com/photo-1609350643153-63541d01aec9",
-    coordinates: {
-      lat: -13.5319,
-      lon: -71.9675
-    }
+    coordinates: { lat: -13.5319, lon: -71.9675 },
+    topAttractions: ["Machu Picchu", "Sacsayhuamán", "Plaza de Armas"],
+    activities: [
+      "Hiking the Inca Trail",
+      "Exploring textile markets",
+      "Visiting Moray and Maras",
+    ],
+    famousDishes: ["Ceviche", "Lomo Saltado", "Causa"],
+    bestTravelSeasons: "May to September (dry season)",
+    transportationTips:
+      "Use colectivos and taxis. Book trains/buses to Machu Picchu in advance.",
   },
   {
     id: 14,
@@ -189,12 +300,19 @@ const destinations = [
     weather: "moderate",
     budget: "moderate",
     cuisines: ["African", "International"],
-    description: "Beautiful coastal city with mountains and beaches",
+    description:
+      "Scenic coastal city with Table Mountain, diverse cultures, and stunning landscapes.",
     imageUrl: "https://images.unsplash.com/photo-1606307850895-43c29221d5ba",
-    coordinates: {
-      lat: -33.9249,
-      lon: 18.4241
-    }
+    coordinates: { lat: -33.9249, lon: 18.4241 },
+    topAttractions: ["Table Mountain", "Cape of Good Hope", "Bo-Kaap"],
+    activities: [
+      "Wine tasting in Stellenbosch",
+      "Robben Island tours",
+      "Penguin watching at Boulders Beach",
+    ],
+    famousDishes: ["Bobotie", "Bunny Chow", "Melktert"],
+    bestTravelSeasons: "October to April",
+    transportationTips: "Rent a car for freedom. Uber is common in the city.",
   },
   {
     id: 15,
@@ -203,12 +321,20 @@ const destinations = [
     weather: "moderate",
     budget: "affordable",
     cuisines: ["Portuguese", "Mediterranean"],
-    description: "Charming city with historic sites and delicious food",
+    description:
+      "Charming city with historic trams, scenic viewpoints, and a soulful atmosphere.",
     imageUrl: "https://images.unsplash.com/photo-1525207934214-58e69a8f8a3e",
-    coordinates: {
-      lat: 38.7169,
-      lon: -9.1399
-    }
+    coordinates: { lat: 38.7169, lon: -9.1399 },
+    topAttractions: ["Belém Tower", "São Jorge Castle", "Alfama District"],
+    activities: [
+      "Fado music shows",
+      "Riding Tram 28",
+      "Pasteis de Belém tasting",
+    ],
+    famousDishes: ["Pastel de Nata", "Bacalhau à Brás", "Sardines"],
+    bestTravelSeasons: "April to June, September to October",
+    transportationTips:
+      "Use trams, metro, and elevadors. Walking is lovely but hilly.",
   },
   {
     id: 16,
@@ -217,9 +343,20 @@ const destinations = [
     weather: "hot",
     budget: "moderate",
     cuisines: ["Greek", "Mediterranean"],
-    description: "Ancient city with stunning ruins and vibrant street life",
+    description:
+      "Ancient city with iconic ruins, vibrant neighborhoods, and Mediterranean lifestyle.",
     imageUrl: "https://images.unsplash.com/photo-1599423217192-34da246be9e8",
-    coordinates: { lat: 37.9838, lon: 23.7275 }
+    coordinates: { lat: 37.9838, lon: 23.7275 },
+    topAttractions: ["Acropolis", "Parthenon", "Ancient Agora"],
+    activities: [
+      "Sunset at Lycabettus Hill",
+      "Strolling in Plaka",
+      "Day trip to Temple of Poseidon",
+    ],
+    famousDishes: ["Moussaka", "Souvlaki", "Spanakopita"],
+    bestTravelSeasons: "April to June, September to October",
+    transportationTips:
+      "Use metro and buses. Taxis are affordable. Walk around historic center.",
   },
   {
     id: 17,
@@ -228,9 +365,20 @@ const destinations = [
     weather: "moderate",
     budget: "affordable",
     cuisines: ["Turkish", "Mediterranean"],
-    description: "City that bridges Europe and Asia with rich history",
+    description:
+      "City bridging Europe and Asia, rich in history, bazaars, and culinary delights.",
     imageUrl: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200",
-    coordinates: { lat: 41.0082, lon: 28.9784 }
+    coordinates: { lat: 41.0082, lon: 28.9784 },
+    topAttractions: ["Hagia Sophia", "Blue Mosque", "Grand Bazaar"],
+    activities: [
+      "Bosporus boat tours",
+      "Turkish coffee & baklava tasting",
+      "Visiting a traditional hammam",
+    ],
+    famousDishes: ["Kebab", "Meze platter", "Baklava"],
+    bestTravelSeasons: "April to May, September to November",
+    transportationTips:
+      "Use tram, Metro, ferries. Get an Istanbulkart for convenience.",
   },
   {
     id: 18,
@@ -239,9 +387,20 @@ const destinations = [
     weather: "hot",
     budget: "affordable",
     cuisines: ["Thai", "Asian"],
-    description: "Bustling city known for its street food and temples",
+    description:
+      "Bustling city famed for street food, ornate temples, and vibrant nightlife.",
     imageUrl: "https://images.unsplash.com/photo-1508009603885-50cf7c579365",
-    coordinates: { lat: 13.7563, lon: 100.5018 }
+    coordinates: { lat: 13.7563, lon: 100.5018 },
+    topAttractions: ["Grand Palace", "Wat Arun", "Chatuchak Market"],
+    activities: [
+      "Thai massage",
+      "Floating market visits",
+      "Street food tours in Chinatown",
+    ],
+    famousDishes: ["Pad Thai", "Green Curry", "Som Tam"],
+    bestTravelSeasons: "November to February",
+    transportationTips:
+      "Use BTS Skytrain, MRT, and river ferries. Tuk-tuks are fun but negotiate price.",
   },
   {
     id: 19,
@@ -250,9 +409,20 @@ const destinations = [
     weather: "hot",
     budget: "moderate",
     cuisines: ["Moroccan", "Middle Eastern"],
-    description: "Historic city with vibrant souks and beautiful palaces",
+    description:
+      "Historic city with vibrant souks, palaces, and a sensory feast of sights and smells.",
     imageUrl: "https://images.unsplash.com/photo-1710532539792-4e6b52e8c8b3",
-    coordinates: { lat: 31.6295, lon: -7.9811 }
+    coordinates: { lat: 31.6295, lon: -7.9811 },
+    topAttractions: ["Jemaa el-Fnaa", "Bahia Palace", "Koutoubia Mosque"],
+    activities: [
+      "Haggling in the souks",
+      "Day trip to the Atlas Mountains",
+      "Hammam spa experience",
+    ],
+    famousDishes: ["Tagine", "Couscous", "Mint tea"],
+    bestTravelSeasons: "March to May, September to November",
+    transportationTips:
+      "Walk in the medina, use petit taxis. Buses exist but walking is more immersive.",
   },
   {
     id: 20,
@@ -261,9 +431,20 @@ const destinations = [
     weather: "cold",
     budget: "moderate",
     cuisines: ["Canadian", "International"],
-    description: "Scenic city surrounded by mountains and ocean",
+    description:
+      "Scenic city surrounded by mountains and ocean, offering diverse outdoor adventures.",
     imageUrl: "https://images.unsplash.com/photo-1502228362178-086346ac6862",
-    coordinates: { lat: 49.2827, lon: -123.1207 }
+    coordinates: { lat: 49.2827, lon: -123.1207 },
+    topAttractions: ["Stanley Park", "Capilano Suspension Bridge", "Gastown"],
+    activities: [
+      "Kayaking in English Bay",
+      "Cycling the Seawall",
+      "Granville Island Market visits",
+    ],
+    famousDishes: ["Poutine", "Salmon chowder", "Nanaimo bars"],
+    bestTravelSeasons: "June to September",
+    transportationTips:
+      "Use SkyTrain, buses, and ferries. Cycling is popular. Get a Compass Card.",
   },
   {
     id: 21,
@@ -272,9 +453,20 @@ const destinations = [
     weather: "cold",
     budget: "moderate",
     cuisines: ["Czech", "European"],
-    description: "Fairytale-like city with medieval architecture",
+    description:
+      "Fairytale-like city with medieval architecture, cobblestone streets, and rich history.",
     imageUrl: "https://images.unsplash.com/photo-1517606479700-fb03a3f93fc7",
-    coordinates: { lat: 50.0755, lon: 14.4378 }
+    coordinates: { lat: 50.0755, lon: 14.4378 },
+    topAttractions: ["Charles Bridge", "Prague Castle", "Old Town Square"],
+    activities: [
+      "Beer tasting tours",
+      "Classical concerts",
+      "Exploring Christmas markets (in season)",
+    ],
+    famousDishes: ["Goulash", "Trdelník", "Svíčková"],
+    bestTravelSeasons: "May to September",
+    transportationTips:
+      "Use trams and Metro. The city is walkable. Buy a transport pass for convenience.",
   },
   {
     id: 22,
@@ -283,9 +475,20 @@ const destinations = [
     weather: "cold",
     budget: "luxury",
     cuisines: ["Russian", "European"],
-    description: "Historic capital with iconic architecture and culture",
+    description:
+      "Historic capital famed for its iconic architecture, cultural depth, and vibrant arts scene.",
     imageUrl: "https://images.unsplash.com/photo-1502154371219-2efef412e2cd",
-    coordinates: { lat: 55.7558, lon: 37.6173 }
+    coordinates: { lat: 55.7558, lon: 37.6173 },
+    topAttractions: ["Red Square", "St. Basil's Cathedral", "Kremlin"],
+    activities: [
+      "Bolshoi Ballet performances",
+      "Moscow River cruises",
+      "Exploring Izmailovsky Market",
+    ],
+    famousDishes: ["Borscht", "Pelmeni", "Beef Stroganoff"],
+    bestTravelSeasons: "May to June, September",
+    transportationTips:
+      "Use the Metro (beautiful stations). Taxis and rideshares are available, but watch traffic.",
   },
   {
     id: 23,
@@ -294,9 +497,20 @@ const destinations = [
     weather: "moderate",
     budget: "affordable",
     cuisines: ["Argentinian", "Latin American"],
-    description: "Vibrant city known for its art, culture, and tango music",
+    description:
+      "Cultural hub with grand architecture, passionate sports fans, and a thriving nightlife.",
     imageUrl: "https://images.unsplash.com/photo-1679417302656-9b5170584526",
-    coordinates: { lat: -34.6037, lon: -58.3816 }
+    coordinates: { lat: -34.6037, lon: -58.3816 },
+    topAttractions: ["Obelisco", "Puerto Madero", "MALBA Museum"],
+    activities: [
+      "Watching football at La Bombonera",
+      "Strolling in Palermo Parks",
+      "Wine tasting at a local vinoteca",
+    ],
+    famousDishes: ["Milanesa", "Provoleta", "Alfajores"],
+    bestTravelSeasons: "March to May, September to November",
+    transportationTips:
+      "Subte and taxis are reliable. Bike-sharing is available in central areas.",
   },
   {
     id: 24,
@@ -305,9 +519,25 @@ const destinations = [
     weather: "hot",
     budget: "moderate",
     cuisines: ["Brazilian", "Latin American"],
-    description: "Beach city famous for its carnival and natural beauty",
+    description:
+      "Beach city famous for its carnival, samba rhythms, and dramatic natural landscapes.",
     imageUrl: "https://images.unsplash.com/photo-1561577553-674ce32847a4",
-    coordinates: { lat: -22.9068, lon: -43.1729 }
+    coordinates: { lat: -22.9068, lon: -43.1729 },
+    topAttractions: [
+      "Christ the Redeemer",
+      "Sugarloaf Mountain",
+      "Copacabana Beach",
+    ],
+    activities: [
+      "Samba classes",
+      "Hang gliding over the city",
+      "Beach volleyball at Ipanema",
+    ],
+    famousDishes: ["Feijoada", "Pão de Queijo", "Açaí bowls"],
+    bestTravelSeasons:
+      "December to March (summer), also good in shoulder months",
+    transportationTips:
+      "Use the Metro and official taxis. Be cautious at night in less crowded areas.",
   },
   {
     id: 25,
@@ -316,9 +546,24 @@ const destinations = [
     weather: "cold",
     budget: "luxury",
     cuisines: ["Austrian", "European"],
-    description: "Elegant city known for classical music and palaces",
+    description:
+      "Elegant city known for classical music heritage, imperial palaces, and café culture.",
     imageUrl: "https://images.unsplash.com/photo-1516550893923-42d28e5677af",
-    coordinates: { lat: 48.2082, lon: 16.3738 }
+    coordinates: { lat: 48.2082, lon: 16.3738 },
+    topAttractions: [
+      "Schönbrunn Palace",
+      "St. Stephen's Cathedral",
+      "Belvedere Palace",
+    ],
+    activities: [
+      "Classical music concerts",
+      "Visiting coffee houses",
+      "Exploring Naschmarkt",
+    ],
+    famousDishes: ["Wiener Schnitzel", "Apfelstrudel", "Sachertorte"],
+    bestTravelSeasons: "April to June, September to October",
+    transportationTips:
+      "Use U-Bahn, trams, buses. Very walkable and bike-friendly.",
   },
   {
     id: 26,
@@ -327,9 +572,16 @@ const destinations = [
     weather: "hot",
     budget: "affordable",
     cuisines: ["Vietnamese", "Asian"],
-    description: "Bustling city with rich history and famous street food",
+    description:
+      "Bustling capital with rich history, vibrant street food, and a blend of old and new.",
     imageUrl: "https://images.unsplash.com/photo-1727752040431-c4134a5a3895",
-    coordinates: { lat: 21.0285, lon: 105.8542 }
+    coordinates: { lat: 21.0285, lon: 105.8542 },
+    topAttractions: ["Old Quarter", "Hoan Kiem Lake", "Temple of Literature"],
+    activities: ["Street food tours", "Cyclo rides", "Water puppet shows"],
+    famousDishes: ["Pho", "Bun Cha", "Banh Mi"],
+    bestTravelSeasons: "March-April, October-November",
+    transportationTips:
+      "Use taxis or Grab. Walking is easy in the Old Quarter. Be careful crossing streets.",
   },
   {
     id: 27,
@@ -338,9 +590,25 @@ const destinations = [
     weather: "moderate",
     budget: "moderate",
     cuisines: ["Korean", "Asian"],
-    description: "Vibrant city with unique culture and cutting-edge tech",
-    imageUrl: "https://media.istockphoto.com/id/621371796/photo/sunset-at-seoul-city-skyline-south-korea.webp?a=1&b=1&s=612x612&w=0&k=20&c=_xrSjH2eKqoSwQUZteTgamYcAnOnAlXQ5ECDrBqKZTY=",
-    coordinates: { lat: 37.5665, lon: 126.9780 }
+    description:
+      "Dynamic metropolis blending ancient traditions with cutting-edge technology and pop culture.",
+    imageUrl:
+      "https://media.istockphoto.com/id/621371796/photo/sunset-at-seoul-city-skyline-south-korea.webp",
+    coordinates: { lat: 37.5665, lon: 126.978 },
+    topAttractions: [
+      "Gyeongbokgung Palace",
+      "Bukchon Hanok Village",
+      "Myeongdong",
+    ],
+    activities: [
+      "K-Pop concerts",
+      "Karaoke (Noraebang)",
+      "Visiting a jjimjilbang (spa)",
+    ],
+    famousDishes: ["Bibimbap", "Kimchi", "Korean BBQ"],
+    bestTravelSeasons: "April-June (blossoms), September-October",
+    transportationTips:
+      "Use T-money card for Metro and buses. Public transport is efficient and clean.",
   },
   {
     id: 28,
@@ -349,9 +617,20 @@ const destinations = [
     weather: "cold",
     budget: "luxury",
     cuisines: ["Swiss", "European"],
-    description: "Beautiful city surrounded by mountains and lakes",
+    description:
+      "Picturesque city by a lake, surrounded by mountains, known for quality of life and chocolate.",
     imageUrl: "https://images.unsplash.com/photo-1657410283156-58176704e858",
-    coordinates: { lat: 47.3769, lon: 8.5417 }
+    coordinates: { lat: 47.3769, lon: 8.5417 },
+    topAttractions: ["Lake Zurich", "Old Town (Altstadt)", "Uetliberg"],
+    activities: [
+      "Boat trips on the lake",
+      "Visiting chocolatiers",
+      "Hiking in nearby hills",
+    ],
+    famousDishes: ["Raclette", "Fondue", "Zürcher Geschnetzeltes"],
+    bestTravelSeasons: "June to August (warm), December for Christmas markets",
+    transportationTips:
+      "Use trams, trains, and the Zurich Card for discounts. Very walkable city.",
   },
   {
     id: 29,
@@ -360,9 +639,20 @@ const destinations = [
     weather: "moderate",
     budget: "affordable",
     cuisines: ["Peruvian", "Latin American"],
-    description: "City with historic landmarks and vibrant culinary scene",
+    description:
+      "Coastal capital with colonial heritage, world-class gastronomy, and vibrant neighborhoods.",
     imageUrl: "https://images.unsplash.com/photo-1568805647297-df963b524678",
-    coordinates: { lat: -12.0464, lon: -77.0428 }
+    coordinates: { lat: -12.0464, lon: -77.0428 },
+    topAttractions: ["Larco Museum", "Plaza Mayor", "Miraflores District"],
+    activities: [
+      "Ceviche tasting tours",
+      "Surfing at Costa Verde",
+      "Paragliding off the cliffs",
+    ],
+    famousDishes: ["Ceviche", "Lomo Saltado", "Anticuchos"],
+    bestTravelSeasons: "December to April",
+    transportationTips:
+      "Use official taxis or rideshare. Buses are common but can be crowded.",
   },
   {
     id: 30,
@@ -371,10 +661,21 @@ const destinations = [
     weather: "moderate",
     budget: "moderate",
     cuisines: ["Kiwi", "International"],
-    description: "Scenic city with beautiful landscapes and adventure sports",
+    description:
+      "Harborside city with stunning landscapes, Maori culture, and adventure activities.",
     imageUrl: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad",
-    coordinates: { lat: -36.8485, lon: 174.7633 }
-  }
+    coordinates: { lat: -36.8485, lon: 174.7633 },
+    topAttractions: ["Sky Tower", "Waiheke Island", "Auckland Domain"],
+    activities: [
+      "Bungee jumping off Sky Tower",
+      "Wine tours on Waiheke",
+      "Ferry rides to nearby islands",
+    ],
+    famousDishes: ["Pavlova", "Fish and chips", "Green-lipped mussels"],
+    bestTravelSeasons: "March to May, September to November",
+    transportationTips:
+      "Use AT HOP card for buses and ferries. Renting a car is good for exploring the region.",
+  },
 ];
 
 module.exports = destinations;
