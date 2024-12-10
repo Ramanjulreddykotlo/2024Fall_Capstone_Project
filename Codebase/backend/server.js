@@ -40,41 +40,6 @@ const authenticateToken = (req, res, next) => {
 // Flight Routes
 app.get("/api/flights/search", authenticateToken, async (req, res) => {
   try {
-    const { origin, destination, date, passengers } = req.query;
-
-    if (!origin || !destination || !date) {
-      return res
-        .status(400)
-        .json({ error: "Origin, destination, and date are required" });
-    }
-
-    // Get airport codes for origin and destination cities
-    const originAirports = await FlightService.getNearbyAirports(origin);
-    const destAirports = await FlightService.getNearbyAirports(destination);
-
-    if (!originAirports.length || !destAirports.length) {
-      return res
-        .status(404)
-        .json({ error: "No airports found for the specified cities" });
-    }
-
-    // Search flights using the first airport from each city
-    const flights = await FlightService.searchFlights(
-      originAirports[0],
-      destAirports[0],
-      date,
-      parseInt(passengers) || 1,
-    );
-
-    res.json(flights);
-  } catch (error) {
-    console.error("Error searching flights:", error);
-    res.status(500).json({ error: "Error searching flights" });
-  }
-});
-
-app.get("/api/flights/search", authenticateToken, async (req, res) => {
-  try {
     const {
       originSkyId,
       destinationSkyId,
@@ -113,7 +78,7 @@ app.get("/api/flights/search", authenticateToken, async (req, res) => {
   }
 });
 
-// Existing Auth Routes
+// Auth Routes
 app.post("/api/register", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -165,7 +130,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// Existing Preferences Routes
+// Preferences Routes
 app.post("/api/preferences", authenticateToken, (req, res) => {
   try {
     const { budget, weather, foodPreferences } = req.body;
@@ -177,6 +142,7 @@ app.post("/api/preferences", authenticateToken, (req, res) => {
         .json({ error: "All preference fields are required" });
     }
 
+    // Remove any existing preferences for this user
     preferences = preferences.filter((pref) => pref.userId !== userId);
 
     const userPreferences = {
@@ -206,7 +172,7 @@ app.get("/api/preferences", authenticateToken, (req, res) => {
   }
 });
 
-// Existing Weather Route
+// Weather Route
 app.get("/api/weather/:destinationId", authenticateToken, async (req, res) => {
   try {
     const destination = destinations.find(
@@ -228,7 +194,7 @@ app.get("/api/weather/:destinationId", authenticateToken, async (req, res) => {
   }
 });
 
-// Existing Recommendations Route
+// Recommendations Route
 app.get("/api/recommendations", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -307,6 +273,17 @@ app.get("/api/recommendations", authenticateToken, async (req, res) => {
     console.error("Error generating recommendations:", error);
     res.status(500).json({ error: "Error generating recommendations" });
   }
+});
+
+app.get("/api/destinations/:id", authenticateToken, (req, res) => {
+  const destinationId = parseInt(req.params.id, 10);
+  const destination = destinations.find((d) => d.id === destinationId);
+
+  if (!destination) {
+    return res.status(404).json({ error: "Destination not found" });
+  }
+
+  res.json(destination);
 });
 
 // Start server

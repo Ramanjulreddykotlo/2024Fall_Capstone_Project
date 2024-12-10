@@ -15,47 +15,98 @@ import {
   Info,
 } from "lucide-react";
 
-// City mappings for SkyScanner API
 const CITY_MAPPINGS = {
-  London: {
-    skyId: "LOND",
-    entityId: "27544008",
-  },
-  "New York": {
-    skyId: "NYCA",
-    entityId: "27537542",
-  },
-  Bali: {
-    skyId: "DPSB",
-    entityId: "27536766",
-  },
-  Tokyo: {
-    skyId: "TYOA",
-    entityId: "27542699",
-  },
-  Paris: {
-    skyId: "PARI",
-    entityId: "27539733",
-  },
-  Dubai: {
-    skyId: "DXBA",
-    entityId: "27537447",
-  },
+  London: { skyId: "LOND", entityId: "27544008" },
+  "New York": { skyId: "NYCA", entityId: "27537542" },
+  Bali: { skyId: "DPSB", entityId: "27536766" },
+  Tokyo: { skyId: "TYOA", entityId: "27542699" },
+  Paris: { skyId: "PARI", entityId: "27539733" },
+  Dubai: { skyId: "DXBA", entityId: "27537447" },
+  Rome: { skyId: "ROME", entityId: "27539793" },
+  Reykjavik: { skyId: "REK", entityId: "27546312" },
+  Singapore: { skyId: "SINS", entityId: "27546235" },
+  Barcelona: { skyId: "BCN", entityId: "27548283" },
+  Kyoto: { skyId: "UKY", entityId: "27542699" },
+  Cairo: { skyId: "CAIR", entityId: "27539681" },
+  Sydney: { skyId: "SYDA", entityId: "27544008" },
+  Maui: { skyId: "OGG", entityId: "27546067" },
+  "Buenos Aires": { skyId: "BUEA", entityId: "27536819" },
+  Cusco: { skyId: "CUZ", entityId: "27536953" },
+  "Cape Town": { skyId: "CPT", entityId: "27539684" },
+  Lisbon: { skyId: "LISB", entityId: "27544347" },
+  Athens: { skyId: "ATH", entityId: "27539733" },
+  Istanbul: { skyId: "ISTA", entityId: "27539689" },
+  Bangkok: { skyId: "BKKT", entityId: "27536542" },
+  Marrakech: { skyId: "RAK", entityId: "27544847" },
+  Vancouver: { skyId: "VANC", entityId: "27546023" },
+  Prague: { skyId: "PRG", entityId: "27546171" },
+  Moscow: { skyId: "MOSC", entityId: "27539582" },
+  "Rio de Janeiro": { skyId: "RIO", entityId: "27536536" },
+  Vienna: { skyId: "VIEN", entityId: "27545957" },
+  Hanoi: { skyId: "HAN", entityId: "27545165" },
+  Seoul: { skyId: "SELA", entityId: "27546091" },
+  Zurich: { skyId: "ZRH", entityId: "27545952" },
+  Lima: { skyId: "LIMA", entityId: "27536953" },
+  Auckland: { skyId: "AUCK", entityId: "27546067" },
 };
 
 const formatDuration = (minutes) => {
+  if (!minutes || isNaN(minutes)) return "N/A";
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   return `${hours}h ${remainingMinutes}m`;
 };
 
 const formatDateTime = (dateTimeString) => {
-  const date = new Date(dateTimeString);
-  return date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+  if (!dateTimeString) return "N/A";
+  try {
+    const date = new Date(dateTimeString);
+    if (isNaN(date.getTime())) return "Invalid Date";
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch (error) {
+    console.error("Date formatting error:", error);
+    return "Invalid Date";
+  }
+};
+
+const validateSearchParams = (params, destination) => {
+  const errors = [];
+
+  if (!params.origin?.trim()) {
+    errors.push("Origin city is required");
+  }
+
+  if (!params.date) {
+    errors.push("Departure date is required");
+  }
+
+  if (params.returnDate && params.returnDate < params.date) {
+    errors.push("Return date cannot be before departure date");
+  }
+
+  const originCity = CITY_MAPPINGS[params.origin];
+  const destinationCity = CITY_MAPPINGS[destination?.name];
+
+  if (!originCity) {
+    errors.push(`Origin city "${params.origin}" is not supported`);
+  }
+
+  if (!destinationCity) {
+    errors.push(`Destination "${destination?.name}" is not supported`);
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors: errors,
+    cityMappings: {
+      origin: originCity,
+      destination: destinationCity,
+    },
+  };
 };
 
 const FlightSearchForm = ({ onSearch, destination }) => {
@@ -66,6 +117,7 @@ const FlightSearchForm = ({ onSearch, destination }) => {
     returnDate: "",
     passengers: 1,
   });
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     if (destination?.name) {
@@ -78,17 +130,42 @@ const FlightSearchForm = ({ onSearch, destination }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchParams);
+    setFormError("");
+
+    const validation = validateSearchParams(searchParams, destination);
+
+    if (!validation.isValid) {
+      setFormError(validation.errors.join(". "));
+      return;
+    }
+
+    const apiSearchParams = {
+      originSkyId: validation.cityMappings.origin.skyId,
+      destinationSkyId: validation.cityMappings.destination.skyId,
+      originEntityId: validation.cityMappings.origin.entityId,
+      destinationEntityId: validation.cityMappings.destination.entityId,
+      date: searchParams.date,
+      returnDate: searchParams.returnDate || undefined,
+      adults: searchParams.passengers,
+    };
+
+    onSearch(apiSearchParams);
   };
 
   const today = new Date().toISOString().split("T")[0];
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg p-6 space-y-4">
+      {formError && (
+        <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+          {formError}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Origin
+            Origin <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -97,7 +174,9 @@ const FlightSearchForm = ({ onSearch, destination }) => {
             onChange={(e) =>
               setSearchParams((prev) => ({ ...prev, origin: e.target.value }))
             }
-            className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className={`w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none ${
+              !searchParams.origin && "border-red-300"
+            }`}
             placeholder="Select city (e.g. London)"
             required
           />
@@ -123,7 +202,7 @@ const FlightSearchForm = ({ onSearch, destination }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Departure Date
+            Departure Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -132,7 +211,9 @@ const FlightSearchForm = ({ onSearch, destination }) => {
               setSearchParams((prev) => ({ ...prev, date: e.target.value }))
             }
             min={today}
-            className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className={`w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none ${
+              !searchParams.date && "border-red-300"
+            }`}
             required
           />
         </div>
@@ -211,7 +292,6 @@ const FlightCard = ({ flight }) => (
     </div>
 
     <div className="flex flex-col gap-4">
-      {/* Outbound Flight */}
       <div className="border-b pb-4">
         <div className="text-sm text-gray-500 mb-2">Outbound Flight</div>
         <div className="flex justify-between items-center">
@@ -248,7 +328,6 @@ const FlightCard = ({ flight }) => (
         </div>
       </div>
 
-      {/* Return Flight */}
       {flight.return && (
         <div>
           <div className="text-sm text-gray-500 mb-2">Return Flight</div>
@@ -273,7 +352,9 @@ const FlightCard = ({ flight }) => (
               <div className="text-sm text-gray-500">
                 {flight.return.stops === 0
                   ? "Direct"
-                  : `${flight.return.stops} stop${flight.return.stops > 1 ? "s" : ""}`}
+                  : `${flight.return.stops} stop${
+                      flight.return.stops > 1 ? "s" : ""
+                    }`}
               </div>
             </div>
             <div className="flex-1 text-right">
@@ -309,6 +390,112 @@ const FlightCard = ({ flight }) => (
   </div>
 );
 
+function generateRandomFlights(params) {
+  return new Promise((resolve) => {
+    const airlines = [
+      "Delta",
+      "KLM",
+      "Air France",
+      "United",
+      "Emirates",
+      "Lufthansa",
+      "British Airways",
+      "Qatar Airways",
+      "Singapore Airlines",
+      "American Airlines",
+    ];
+
+    const originCity = Object.keys(CITY_MAPPINGS).find(
+      (city) => CITY_MAPPINGS[city].skyId === params.originSkyId,
+    );
+    const destinationCity = Object.keys(CITY_MAPPINGS).find(
+      (city) => CITY_MAPPINGS[city].skyId === params.destinationSkyId,
+    );
+
+    // Generate a random number of flights (1-5)
+    const flightCount = Math.floor(Math.random() * 5) + 1;
+    const flights = [];
+
+    const travelDate = new Date(params.date);
+    const returnDate = params.returnDate ? new Date(params.returnDate) : null;
+
+    for (let i = 0; i < flightCount; i++) {
+      const airline = airlines[Math.floor(Math.random() * airlines.length)];
+      const stops = Math.floor(Math.random() * 3);
+      const durationOutbound = 300 + Math.floor(Math.random() * 600); // 5 to 15 hours
+      const durationReturn = returnDate
+        ? 300 + Math.floor(Math.random() * 600)
+        : null;
+
+      const departureTime = new Date(travelDate.getTime());
+      departureTime.setHours(
+        6 + Math.floor(Math.random() * 12),
+        Math.floor(Math.random() * 60),
+      );
+
+      const arrivalTime = new Date(departureTime.getTime());
+      arrivalTime.setMinutes(arrivalTime.getMinutes() + durationOutbound);
+
+      let returnFlight = null;
+      if (returnDate) {
+        const returnDepartureTime = new Date(returnDate.getTime());
+        returnDepartureTime.setHours(
+          6 + Math.floor(Math.random() * 12),
+          Math.floor(Math.random() * 60),
+        );
+        const returnArrivalTime = new Date(returnDepartureTime.getTime());
+        returnArrivalTime.setMinutes(
+          returnArrivalTime.getMinutes() + durationReturn,
+        );
+
+        const returnStops = Math.floor(Math.random() * 3);
+
+        returnFlight = {
+          departure: {
+            airport: CITY_MAPPINGS[destinationCity].skyId,
+            time: returnDepartureTime.toISOString(),
+            city: destinationCity,
+          },
+          arrival: {
+            airport: CITY_MAPPINGS[originCity].skyId,
+            time: returnArrivalTime.toISOString(),
+            city: originCity,
+          },
+          duration: durationReturn,
+          stops: returnStops,
+        };
+      }
+
+      flights.push({
+        id: `${i}-${Date.now()}`,
+        price: (500 + Math.random() * 1000).toFixed(2),
+        currency: "USD",
+        airline,
+        departure: {
+          airport: CITY_MAPPINGS[originCity].skyId,
+          time: departureTime.toISOString(),
+          city: originCity,
+        },
+        arrival: {
+          airport: CITY_MAPPINGS[destinationCity].skyId,
+          time: arrivalTime.toISOString(),
+          city: destinationCity,
+        },
+        duration: durationOutbound,
+        stops,
+        return: returnFlight,
+        available_seats: Math.floor(Math.random() * 50) + 1,
+        score: Math.random(),
+        tags: i === 0 ? ["cheapest"] : [],
+      });
+    }
+
+    setTimeout(() => {
+      resolve(flights);
+    }, 1200);
+  });
+}
+
 const PricingModal = ({ destination, isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState("flights");
   const [flights, setFlights] = useState([]);
@@ -320,50 +507,18 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
-      const { origin, date, returnDate, passengers } = searchParams;
-
-      // Get origin city mappings
-      const originCity = CITY_MAPPINGS[origin];
-      const destinationCity = CITY_MAPPINGS[destination.name];
-
-      if (!originCity) {
+      if (
+        !searchParams.originSkyId ||
+        !searchParams.destinationSkyId ||
+        !searchParams.date
+      ) {
         throw new Error(
-          `Origin city "${origin}" not supported. Please choose from: ${Object.keys(CITY_MAPPINGS).join(", ")}`,
+          "Please fill in all required fields (origin, destination, and date)",
         );
       }
 
-      if (!destinationCity) {
-        throw new Error(
-          `Destination city "${destination.name}" not supported. Please choose from: ${Object.keys(CITY_MAPPINGS).join(", ")}`,
-        );
-      }
-
-      const queryParams = new URLSearchParams({
-        originSkyId: originCity.skyId,
-        destinationSkyId: destinationCity.skyId,
-        originEntityId: originCity.entityId,
-        destinationEntityId: destinationCity.entityId,
-        date,
-        ...(returnDate && { returnDate }),
-        adults: passengers || 1,
-      });
-
-      const response = await fetch(
-        `http://localhost:5980/api/flights/search?${queryParams}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to fetch flights");
-      }
-
-      const data = await response.json();
+      // Simulate fetching real flights by generating random flight data
+      const data = await generateRandomFlights(searchParams);
       setFlights(data);
     } catch (err) {
       setError(err.message);
@@ -496,7 +651,6 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* Price Alert Dialog */}
       {flights.length > 0 && (
         <div className="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-sm border border-gray-200">
           <div className="flex items-start gap-3">
@@ -512,9 +666,7 @@ const PricingModal = ({ destination, isOpen, onClose }) => {
             </div>
             <button
               className="text-gray-400 hover:text-gray-600"
-              onClick={() => {
-                /* Handle close alert */
-              }}
+              onClick={() => {}}
             >
               <X size={16} />
             </button>
