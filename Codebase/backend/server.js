@@ -73,19 +73,43 @@ app.get("/api/flights/search", authenticateToken, async (req, res) => {
   }
 });
 
-app.get("/api/airports/search", authenticateToken, async (req, res) => {
+app.get("/api/flights/search", authenticateToken, async (req, res) => {
   try {
-    const { query } = req.query;
+    const {
+      originSkyId,
+      destinationSkyId,
+      originEntityId,
+      destinationEntityId,
+      date,
+      returnDate,
+      adults,
+    } = req.query;
 
-    if (!query) {
-      return res.status(400).json({ error: "Search query is required" });
+    if (!originSkyId || !destinationSkyId || !date) {
+      return res.status(400).json({
+        error: "Required parameters missing",
+        required: ["originSkyId", "destinationSkyId", "date"],
+      });
     }
 
-    const airports = await FlightService.getAirports(query);
-    res.json(airports);
+    const searchParams = {
+      originSkyId,
+      destinationSkyId,
+      originEntityId,
+      destinationEntityId,
+      date,
+      returnDate,
+      adults: parseInt(adults) || 1,
+    };
+
+    const flights = await FlightService.searchFlights(searchParams);
+    res.json(flights);
   } catch (error) {
-    console.error("Error searching airports:", error);
-    res.status(500).json({ error: "Error searching airports" });
+    console.error("Error searching flights:", error);
+    res.status(500).json({
+      error: "Error searching flights",
+      details: error.message,
+    });
   }
 });
 

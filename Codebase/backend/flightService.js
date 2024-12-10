@@ -5,32 +5,21 @@ class FlightService {
     this.API_KEY = "886c208dfbmshb7dcb4428a8d49ep130127jsn73e24924d53a";
     this.API_HOST = "sky-scrapper.p.rapidapi.com";
 
-    // Common city entity IDs for major destinations
-    this.cityEntityIds = {
-      London: "27544008",
-      "New York": "27537542",
-      Tokyo: "27542699",
-      Paris: "27539733",
-      Dubai: "27537447",
-    };
-
-    // Common city SkyIDs
-    this.citySkyIds = {
-      London: "LOND",
-      "New York": "NYCA",
-      Tokyo: "TYOA",
-      Paris: "PARI",
-      Dubai: "DXBA",
+    // Map of cities to their SkyIds and EntityIds
+    this.cityMappings = {
+      London: {
+        skyId: "LOND",
+        entityId: "27544008",
+      },
+      "New York": {
+        skyId: "NYCA",
+        entityId: "27537542",
+      },
+      // Add more cities as needed
     };
   }
 
-  async searchFlights(
-    origin,
-    destination,
-    date,
-    returnDate = null,
-    passengers = 1,
-  ) {
+  async searchFlights(params) {
     try {
       const options = {
         method: "GET",
@@ -40,14 +29,14 @@ class FlightService {
           "X-RapidAPI-Host": this.API_HOST,
         },
         params: {
-          originSkyId: this.citySkyIds[origin] || origin,
-          destinationSkyId: this.citySkyIds[destination] || destination,
-          originEntityId: this.cityEntityIds[origin] || origin,
-          destinationEntityId: this.cityEntityIds[destination] || destination,
-          date: this.formatDate(date),
-          returnDate: returnDate ? this.formatDate(returnDate) : undefined,
+          originSkyId: params.originSkyId,
+          destinationSkyId: params.destinationSkyId,
+          originEntityId: params.originEntityId,
+          destinationEntityId: params.destinationEntityId,
+          date: params.date,
+          returnDate: params.returnDate,
           cabinClass: "economy",
-          adults: passengers,
+          adults: params.adults || 1,
           sortBy: "best",
           currency: "USD",
           market: "en-US",
@@ -55,23 +44,16 @@ class FlightService {
         },
       };
 
-      console.log(
-        `Searching flights from ${origin} to ${destination} for ${date}`,
-      );
+      console.log("Making API request with params:", options.params);
       const response = await axios.request(options);
       return this.processFlightData(response.data);
     } catch (error) {
-      console.error("Error searching flights:", error);
+      console.error(
+        "Error in flight search:",
+        error.response?.data || error.message,
+      );
       throw error;
     }
-  }
-
-  formatDate(date) {
-    // Convert date to YYYY-MM-DD format if it's not already
-    if (date instanceof Date) {
-      return date.toISOString().split("T")[0];
-    }
-    return date;
   }
 
   processFlightData(data) {
@@ -116,25 +98,8 @@ class FlightService {
               stops: returnLeg.stopCount,
             }
           : null,
-        available_seats: Math.floor(Math.random() * 30) + 1, // Simulated as API doesn't provide this
-        score: itinerary.score || 0,
-        tags: itinerary.tags || [],
       };
     });
-  }
-
-  async getCityId(query) {
-    // First check if it's a known city
-    if (this.cityEntityIds[query]) {
-      return {
-        entityId: this.cityEntityIds[query],
-        skyId: this.citySkyIds[query],
-      };
-    }
-
-    // If not, would need to implement city search endpoint
-    // For now, return null or throw error
-    throw new Error("City not found in known cities list");
   }
 }
 
